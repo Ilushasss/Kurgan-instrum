@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИнструментАренда Курган — аренда строительного инструмента</title>
+<meta name="description" content="Аренда строительного инструмента в Кургане почасово и посуточно. Доставка по городу за 2 часа.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #e8e8e8;
+    line-height: 1.6;
+    background: #0a0a0a;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+  /* ===== ЛОГОТИП ===== */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #f0c75e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(212,175,55,0.35);
+  }
+  .logo-mark svg { width: 26px; height: 26px; }
+  .logo-text { line-height: 1.1; }
+  .logo-title { font-size: 19px; font-weight: 700; color: #d4af37; letter-spacing: 0.3px; }
+  .logo-title span { color: #fff; }
+  .logo-sub { font-size: 10px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ===== ШАПКА ===== */
+  header {
+    background: #000;
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #d4af37;
+    box-shadow: 0 2px 20px rgba(212,175,55,0.15);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  nav { display: flex; gap: 24px; }
+  nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color .2s;
+    white-space: nowrap;
+  }
+  nav a:hover { color: #d4af37; }
+  .phone {
+    font-weight: 700;
+    color: #d4af37;
+    text-decoration: none;
+    border: 1px solid #d4af37;
+    padding: 9px 16px;
+    border-radius: 6px;
+    transition: all .2s;
+    white-space: nowrap;
+    font-size: 15px;
+  }
+  .phone:hover { background: #d4af37; color: #000; }
+
+  /* Бургер */
+  .burger {
+    display: none;
+    background: none;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .burger span, .burger span::before, .burger span::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 20px;
+    height: 2px;
+    background: #d4af37;
+    transform: translateX(-50%);
+    transition: all .3s;
+  }
+  .burger span { top: 50%; margin-top: -1px; }
+  .burger span::before { top: -6px; left: 0; transform: none; }
+  .burger span::after  { top: 6px;  left: 0; transform: none; }
+  .burger.active span { background: transparent; }
+  .burger.active span::before { top: 0; transform: rotate(45deg); }
+  .burger.active span::after  { top: 0; transform: rotate(-45deg); }
+
+  /* Мобильное меню */
+  .mobile-menu {
+    display: none;
+    background: #0f0f0f;
+    border-bottom: 1px solid #242424;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .35s ease;
+  }
+  .mobile-menu.open { max-height: 320px; }
+  .mobile-menu a {
+    display: block;
+    padding: 14px 20px;
+    color: #ccc;
+    text-decoration: none;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 16px;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:active { background: #1a1a1a; color: #d4af37; }
+
+  /* ===== ГЕРОЙ ===== */
+  .hero {
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #0a0a0a 100%);
+    color: #fff;
+    padding: 90px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero .container { position: relative; z-index: 1; }
+  .hero h1 { font-size: 44px; margin-bottom: 18px; line-height: 1.2; }
+  .hero h1 span { color: #d4af37; text-shadow: 0 0 30px rgba(212,175,55,0.5); }
+  .hero p { font-size: 18px; color: #b0b0b0; max-width: 700px; margin: 0 auto 30px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4af37, #f0c75e);
+    color: #000;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(212,175,55,0.3);
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,175,55,0.5); }
+  .btn-outline {
+    background: transparent;
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: #d4af37; color: #000; }
+
+  /* ===== СЕКЦИИ ===== */
+  .features { padding: 70px 0; background: #0f0f0f; }
+  .section-title {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #d4af37;
+    margin: 14px auto 0;
+  }
+  .section-sub {
+    text-align: center;
+    color: #888;
+    margin-bottom: 45px;
+    font-size: 15px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .feature {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    padding: 30px 22px;
+    border-radius: 12px;
+    border: 1px solid #2a2a2a;
+    text-align: center;
+    transition: border-color .3s, transform .3s;
+  }
+  .feature:hover { border-color: #d4af37; transform: translateY(-4px); }
+  .feature .icon { font-size: 38px; margin-bottom: 14px; }
+  .feature h3 { font-size: 18px; margin-bottom: 8px; color: #d4af37; }
+  .feature p { font-size: 14px; color: #999; }
+
+  /* ===== КАТАЛОГ ===== */
+  .catalog { padding: 70px 0; background: #0a0a0a; }
+
+  /* Переключатель Час/Сутки */
+  .rate-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    gap: 0;
+    background: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 40px;
+    padding: 4px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rate-toggle button {
+    padding: 10px 28px;
+    border: none;
+    background: transparent;
+    color: #888;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all .25s;
+    font-family: inherit;
+  }
+  .rate-toggle button.active {
+    background: linear-gradient(135deg, #d4af37, #f0c75e);
+    color: #000;
+    box-shadow: 0 4px 14px rgba(212,175,55,0.3);
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+  .filter-btn {
+    padding: 10px 22px;
+    border: 1px solid #333;
+    background: #151515;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #aaa;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { border-color: #d4af37; color: #d4af37; }
+  .filter-btn.active {
+    background: linear-gradient(135deg, #d4af37, #f0c75e);
+    border-color: #d4af37;
+    color: #000;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 26px;
+  }
+  .card {
+    background: linear-gradient(145deg, #161616, #0e0e0e);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #242424;
+    display: flex;
+    flex-direction: column;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: #d4af37;
+    box-shadow: 0 12px 40px rgba(212,175,55,0.2);
+  }
+  .card-img {
+    height: 190px;
+    background: #1a1a1a;
+    overflow: hidden;
+    position: relative;
+  }
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s;
+    filter: brightness(0.9) contrast(1.05);
+  }
+  .card:hover .card-img img { transform: scale(1.08); filter: brightness(1.05) contrast(1.1); }
+  .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .card-tag {
+    display: inline-block;
+    font-size: 11px;
+    background: rgba(212,175,55,0.12);
+    color: #d4af37;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: 1px solid rgba(212,175,55,0.3);
+  }
+  .card h3 { font-size: 17px; margin-bottom: 8px; color: #fff; }
+  .card .desc { font-size: 13px; color: #888; margin-bottom: 16px; flex: 1; }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #242424;
+    padding-top: 14px;
+    gap: 10px;
+  }
+  .price { font-size: 21px; font-weight: 700; color: #d4af37; line-height: 1.2; }
+  .price small { font-size: 12px; font-weight: 400; color: #777; display: block; }
+  .rent-btn {
+    background: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all .2s;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .rent-btn:hover, .rent-btn:active { background: #d4af37; color: #000; }
+
+  /* ===== ФОРМА ===== */
+  .order {
+    background: linear-gradient(180deg, #0f0f0f, #000);
+    padding: 70px 0;
+    border-top: 1px solid #242424;
+    border-bottom: 1px solid #242424;
+  }
+  .form-wrap { max-width: 600px; margin: 0 auto; }
+  .form-row { margin-bottom: 18px; }
+  .form-row label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #bbb;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    padding: 14px 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #141414;
+    color: #fff;
+    font-size: 16px; /* 16px = нет зума на iOS */
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+  }
+  .form-row input::placeholder, .form-row textarea::placeholder { color: #555; }
+  .form-row textarea { resize: vertical; min-height: 85px; }
+  .form-wrap .btn { width: 100%; margin-top: 8px; }
+
+  /* ===== ПОДВАЛ ===== */
+  footer {
+    background: #000;
+    color: #888;
+    padding: 50px 0 20px;
+    font-size: 14px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .footer-grid h4 { color: #d4af37; margin-bottom: 14px; font-size: 16px; }
+  .footer-grid p, .footer-grid a {
+    color: #888;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color .2s;
+  }
+  .footer-grid a:hover { color: #d4af37; }
+  .footer-grid .phone-foot { color: #d4af37; font-weight: 700; font-size: 17px; }
+  .copy {
+    text-align: center;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 22px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  /* ===== УВЕДОМЛЕНИЕ ===== */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    max-width: 360px;
+    margin-left: auto;
+    background: linear-gradient(135deg, #d4af37, #f0c75e);
+    color: #000;
+    padding: 16px 24px;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(212,175,55,0.4);
+    transform: translateY(150%);
+    transition: transform .4s;
+    z-index: 999;
+    font-weight: 700;
+  }
+  .toast.show { transform: translateY(0); }
+
+  /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .phone { display: none; }
+    .burger { display: block; }
+    .mobile-menu { display: block; }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+
+    .logo-mark { width: 38px; height: 38px; }
+    .logo-mark svg { width: 22px; height: 22px; }
+    .logo-title { font-size: 17px; }
+    .logo-sub { font-size: 9px; letter-spacing: 1.5px; }
+
+    .hero { padding: 55px 0; }
+    .hero h1 { font-size: 28px; }
+    .hero p { font-size: 15px; }
+    .hero-btns { flex-direction: column; align-items: stretch; }
+    .btn { padding: 15px 24px; width: 100%; text-align: center; }
+
+    .section-title { font-size: 26px; }
+    .section-sub { font-size: 14px; margin-bottom: 32px; }
+
+    .features { padding: 50px 0; }
+    .features-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .feature { padding: 22px 14px; }
+    .feature .icon { font-size: 30px; margin-bottom: 8px; }
+    .feature h3 { font-size: 15px; }
+    .feature p { font-size: 12px; }
+
+    .catalog { padding: 50px 0; }
+
+    /* Фильтры — горизонтальная прокрутка */
+    .filters {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 26px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-btn { flex-shrink: 0; font-size: 13px; padding: 9px 18px; }
+
+    .rate-toggle { width: 100%; margin-bottom: 20px; }
+    .rate-toggle button { flex: 1; padding: 11px 0; font-size: 14px; }
+
+    .cards { grid-template-columns: 1fr; gap: 18px; }
+    .card-img { height: 200px; }
+    .card:hover { transform: none; } /* убираем подъём на тач-устройствах */
+
+    .order { padding: 50px 0; }
+    .form-row input, .form-row select, .form-row textarea { padding: 14px 14px; }
+
+    footer { padding: 40px 0 20px; }
+    .footer-grid { gap: 24px; }
+
+    .toast { bottom: 16px; right: 16px; left: 16px; }
+  }
+
+  @media (max-width: 380px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== ШАПКА ===== -->
+<header>
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Молоток (ручка диагонально) -->
+          <path d="M6 26 L13 19" stroke-width="2.6"/>
+          <path d="M11 16 L16 21" stroke-width="2.2"/>
+          <rect x="12.5" y="10" width="9" height="6" rx="1.2" transform="rotate(45 17 13)" fill="#000"/>
+          <!-- Гаечный ключ -->
+          <path d="M26 6 L20 12" stroke-width="2.4"/>
+          <circle cx="25.5" cy="6.5" r="2.4" stroke-width="1.8" fill="none"/>
+          <path d="M24.2 5.2 L26.8 7.8" stroke-width="1.4"/>
+          <!-- Молоток головка (упрощённая) -->
+          <path d="M18 8 L23 3" stroke-width="2.6"/>
+          <rect x="20.5" y="1.5" width="6" height="3.2" rx="0.8" transform="rotate(45 23.5 3.1)" fill="#000" stroke="none"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-title">Инструмент<span>Аренда</span></div>
+        <div class="logo-sub">г. Курган</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#features">Преимущества</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#order">Заявка</a>
+    </nav>
+    <a href="tel:+79956749750" class="phone">📞 +7 (995) 674-97-50</a>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== МОБИЛЬНОЕ МЕНЮ ===== -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features">Преимущества</a>
+  <a href="#catalog">Каталог</a>
+  <a href="#order">Оставить заявку</a>
+  <a href="tel:+79956749750" style="color:#d4af37; font-weight:700;">📞 +7 (995) 674-97-50</a>
+</div>
+
+<!-- ===== ГЕРОЙ ===== -->
+<section class="hero">
+  <div class="container">
+    <h1>Аренда строительного инструмента <span>в Кургане</span></h1>
+    <p>Берите инструмент на час или на сутки — платите только за фактическое время работы. Доставка по Кургану и области.</p>
+    <div class="hero-btns">
+      <a href="#catalog" class="btn">Смотреть каталог</a>
+      <a href="#order" class="btn btn-outline">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ПРЕИМУЩЕСТВА ===== -->
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Почему выбирают нас</h2>
+    <p class="section-sub">Более 500 единиц инструмента в наличии в Кургане</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="icon">⏱️</div>
+        <h3>Оплата по часам</h3>
+        <p>Нужен инструмент на пару часов? Платите только за это время.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🚚</div>
+        <h3>Доставка за 2 часа</h3>
+        <p>Привезём инструмент прямо на объект в любом районе Кургана.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🛠️</div>
+        <h3>Проверенное качество</h3>
+        <p>Инструмент Bosch, Makita, DeWalt проходит регулярное ТО.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">💳</div>
+        <h3>Гибкая оплата</h3>
+        <p>Почасовая, посуточная аренда. Скидки от 7 дней.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== КАТАЛОГ ===== -->
+<section class="catalog" id="catalog">
+  <div class="container">
+    <h2 class="section-title">Каталог инструмента</h2>
+    <p class="section-sub">Выберите способ оплаты — почасовой или посуточный</p>
+
+    <!-- Переключатель Час / Сутки -->
+    <div class="rate-toggle">
+      <button class="active" data-rate="hour">За час</button>
+      <button data-rate="day">За сутки</button>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Все</button>
+      <button class="filter-btn" data-filter="electric">Электроинструмент</button>
+      <button class="filter-btn" data-filter="power">Силовая техника</button>
+      <button class="filter-btn" data-filter="measure">Измерительный</button>
+      <button class="filter-btn" data-filter="other">Прочее</button>
+    </div>
+
+    <div class="cards" id="cards">
+
+      <div class="card" data-category="electric">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80" alt="Перфоратор Bosch" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Электроинструмент</span>
+          <h3>Перфоратор Bosch GBH 2-26</h3>
+          <p class="desc">Мощность 800 Вт. Для бетона, кирпича и камня. В комплекте буры.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="200" data-day="800">
+              200 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="Перфоратор Bosch GBH 2-26">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="electric">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80" alt="Циркулярная пила" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Электроинструмент</span>
+          <h3>Циркулярная пила Makita</h3>
+          <p class="desc">Диск 190 мм, плавная регулировка глубины пропила. Для дерева.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="180" data-day="700">
+              180 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="Циркулярная пила Makita">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="electric">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1621478264020-7c1c6f8b0f3c?w=600&q=80" alt="УШМ болгарка" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Электроинструмент</span>
+          <h3>УШМ (болгарка) DeWalt 125</h3>
+          <p class="desc">Мощность 1400 Вт, диаметр диска 125 мм. Резка металла и камня.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="120" data-day="450">
+              120 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="УШМ DeWalt 125">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="power">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1618090584176-7132b9911fd0?w=600&q=80" alt="Бензогенератор" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Силовая техника</span>
+          <h3>Бензогенератор 5 кВт</h3>
+          <p class="desc">Автономное электроснабжение на объекте. Расход топлива 2,5 л/ч.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="400" data-day="1500">
+              400 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="Бензогенератор 5 кВт">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="power">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1581141849291-1125c7b692b5?w=600&q=80" alt="Отбойный молоток" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Силовая техника</span>
+          <h3>Отбойный молоток Bosch</h3>
+          <p class="desc">Электрический, 1500 Вт. Для демонтажных работ и сноса.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="300" data-day="1200">
+              300 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="Отбойный молоток Bosch">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="measure">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80" alt="Лазерный нивелир" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Измерительный</span>
+          <h3>Лазерный нивелир</h3>
+          <p class="desc">Построение горизонтальных и вертикальных плоскостей. Дальность 30 м.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="150" data-day="600">
+              150 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="Лазерный нивелир">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="measure">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80" alt="Тепловизор" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Измерительный</span>
+          <h3>Тепловизор</h3>
+          <p class="desc">Поиск утечек тепла, диагностика электрики. Разрешение 220×160.</p>
+          <div class="card-footer">
+            <div class="price" data-hour="250" data-day="1000">
+              250 ₽ <small>/ час</small>
+            </div>
+            <button class="rent-btn" data-tool="Тепловизор">Арендовать</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="other">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Строительные леса" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Прочее</span>
+          <h3>Строительные леса</h3>
+          <p class="desc">Комплект 2×6
